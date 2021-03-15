@@ -1,0 +1,12 @@
+.navbar {
+  display: flex; 
+  justify-content: flex-end;
+  align-items: center;
+  height: 10vh;
+}
+
+/* .log-out {
+  display: inline-block;
+  justify-self: flex-end;
+
+} */

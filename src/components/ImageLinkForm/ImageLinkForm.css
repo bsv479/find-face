@@ -1,0 +1,45 @@
+.image-link-form {
+  margin-top: 20px;
+}
+
+.form-container {
+  width: 70%;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.form-box {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  min-width: 300px;
+  background-color:#556;
+  background-image: linear-gradient(30deg, #445 12%, transparent 12.5%, transparent 87%, #445 87.5%, #445),
+    linear-gradient(150deg, #445 12%, transparent 12.5%, transparent 87%, #445 87.5%, #445),
+    linear-gradient(30deg, #445 12%, transparent 12.5%, transparent 87%, #445 87.5%, #445),
+    linear-gradient(150deg, #445 12%, transparent 12.5%, transparent 87%, #445 87.5%, #445),
+    linear-gradient(60deg, #99a 25%, transparent 25.5%, transparent 75%, #99a 75%, #99a),
+    linear-gradient(60deg, #99a 25%, transparent 25.5%, transparent 75%, #99a 75%, #99a);
+  background-size:80px 140px;
+  background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
+}
+
+.find-btn {
+  min-width: 7rem;
+  border-radius: 5px;
+}
+
+.find-btn:focus {
+  outline: 0 !important;
+}
+
+.find-input {
+  min-width: 17rem;
+}
+.find-input:focus {
+  outline: 0 !important;
+}
