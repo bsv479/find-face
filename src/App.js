@@ -10,8 +10,10 @@ import ImageRecognition from "./components/ImageRecognition/ImageRecognition";
 import SignIn from "./components/SignIn/SignIn";
 import Register from "./components/Register/Register";
 
+const { REACT_APP_CLARIFAI_API } = process.env;
+
 const app = new Clarifai.App({
-  apiKey: "da268c85433647d8ab6233f81b8a2408",
+  apiKey: REACT_APP_CLARIFAI_API,
 });
 
 const particlesOptions = {
