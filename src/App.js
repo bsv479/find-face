@@ -16,6 +16,7 @@ const app = new Clarifai.App({
   apiKey: REACT_APP_CLARIFAI_API,
 });
 
+
 const particlesOptions = {
   particles: {
     number: {
@@ -28,6 +29,7 @@ const particlesOptions = {
   },
 };
 
+
 class App extends React.Component {
   state = {
     input: "",
@@ -35,20 +37,36 @@ class App extends React.Component {
     boxes: [],
     route: "signin",
     isSignedIn: false,
+    userInfo: {
+      name: '',
+      email: '',
+      entries: 0,
+      joined: new Date(),
+    },
   };
 
-  componentDidMount() {
-    fetch("http://localhost:4000/profiles")
-      .then((res) => res.json())
-      .then(console.log);
-  }
+  // componentDidMount() {
+  //   fetch("http://localhost:4000/profiles")
+  //     .then((res) => res.json())
+  //     .then(console.log);
+  // }
 
   onInputChange = (event) => {
     this.setState({ input: event.target.value });
   };
 
+  onSetUser = (userData) => {
+    this.setState({
+      userInfo: {
+        name: userData.name,
+        email: userData.email,
+        entries: userData.entries,
+        joined: userData.joined
+      },
+    });
+  }
+
   calculateFaceLocation = (data) => {
-    console.log(data);
     const boxes = [];
 
     const inputImage = document.getElementById("input-image");
@@ -71,7 +89,7 @@ class App extends React.Component {
     this.setState({ boxes });
   };
 
-  onButtonSubmit = () => {
+  onPictureSubmit = () => {
     this.setState({
       imageUrl: this.state.input,
     });
@@ -79,8 +97,15 @@ class App extends React.Component {
 
     app.models
       .predict(Clarifai.FACE_DETECT_MODEL, input)
-      .then((response) =>
-        this.displayFaceBox(this.calculateFaceLocation(response))
+      .then((response) => {
+        this.setState({
+          userInfo: {
+            ...this.state.userInfo,
+            entries: this.state.userInfo.entries + 1
+          },
+        });
+        this.displayFaceBox(this.calculateFaceLocation(response));
+      }
       )
       .catch((err) => console.log(err));
   };
@@ -106,15 +131,21 @@ class App extends React.Component {
         />
         <Logo />
         {route === "signin" ? (
-          <SignIn onRouteChange={this.onRouteChange} />
+          <SignIn
+            onSetUser={this.onSetUser}
+            onRouteChange={this.onRouteChange}
+          />
         ) : route === "register" ? (
-          <Register onRouteChange={this.onRouteChange} />
+          <Register
+            onSetUser={this.onSetUser}
+            onRouteChange={this.onRouteChange}
+          />
         ) : (
           <React.Fragment>
-            <Rank />
+            <Rank userInfo={this.state.userInfo} />
             <ImageLinkForm
               onInputChange={this.onInputChange}
-              onButtonSubmit={this.onButtonSubmit}
+              onPictureSubmit={this.onPictureSubmit}
             />
             <ImageRecognition boxes={boxes} imageUrl={imageUrl} />
           </React.Fragment>
