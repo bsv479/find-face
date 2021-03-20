@@ -34,8 +34,14 @@ class App extends React.Component {
     imageUrl: "",
     boxes: [],
     route: "signin",
-    isSignedIn: false
+    isSignedIn: false,
   };
+
+  componentDidMount() {
+    fetch("http://localhost:4000/profiles")
+      .then((res) => res.json())
+      .then(console.log);
+  }
 
   onInputChange = (event) => {
     this.setState({ input: event.target.value });
@@ -80,14 +86,13 @@ class App extends React.Component {
   };
 
   onRouteChange = (route) => {
-    if (route === 'signin') {
-      this.setState({ isSignedIn: false});
-    } else if (route === 'home') {
+    if (route === "signin") {
+      this.setState({ isSignedIn: false });
+    } else if (route === "home") {
       this.setState({ isSignedIn: true });
     }
     this.setState({ route });
   };
-
 
   render() {
     const { boxes, imageUrl, route, isSignedIn } = this.state;
@@ -95,7 +100,10 @@ class App extends React.Component {
     return (
       <div>
         <Particles className="particles" params={particlesOptions} />
-        <Navigation onRouteChange={this.onRouteChange} isSignedIn={isSignedIn}/>
+        <Navigation
+          onRouteChange={this.onRouteChange}
+          isSignedIn={isSignedIn}
+        />
         <Logo />
         {route === "signin" ? (
           <SignIn onRouteChange={this.onRouteChange} />
@@ -108,10 +116,7 @@ class App extends React.Component {
               onInputChange={this.onInputChange}
               onButtonSubmit={this.onButtonSubmit}
             />
-            <ImageRecognition
-              boxes={boxes}
-              imageUrl={imageUrl}
-            />
+            <ImageRecognition boxes={boxes} imageUrl={imageUrl} />
           </React.Fragment>
         )}
       </div>
