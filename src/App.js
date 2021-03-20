@@ -16,7 +16,6 @@ const app = new Clarifai.App({
   apiKey: REACT_APP_CLARIFAI_API,
 });
 
-
 const particlesOptions = {
   particles: {
     number: {
@@ -29,7 +28,6 @@ const particlesOptions = {
   },
 };
 
-
 class App extends React.Component {
   state = {
     input: "",
@@ -38,18 +36,13 @@ class App extends React.Component {
     route: "signin",
     isSignedIn: false,
     userInfo: {
-      name: '',
-      email: '',
+      id: "",
+      name: "",
+      email: "",
       entries: 0,
       joined: new Date(),
     },
   };
-
-  // componentDidMount() {
-  //   fetch("http://localhost:4000/profiles")
-  //     .then((res) => res.json())
-  //     .then(console.log);
-  // }
 
   onInputChange = (event) => {
     this.setState({ input: event.target.value });
@@ -58,13 +51,14 @@ class App extends React.Component {
   onSetUser = (userData) => {
     this.setState({
       userInfo: {
+        id: userData.id,
         name: userData.name,
         email: userData.email,
         entries: userData.entries,
-        joined: userData.joined
+        joined: userData.joined,
       },
     });
-  }
+  };
 
   calculateFaceLocation = (data) => {
     const boxes = [];
@@ -98,15 +92,23 @@ class App extends React.Component {
     app.models
       .predict(Clarifai.FACE_DETECT_MODEL, input)
       .then((response) => {
-        this.setState({
-          userInfo: {
-            ...this.state.userInfo,
-            entries: this.state.userInfo.entries + 1
-          },
-        });
+        if (response) {
+          fetch("http://localhost:4000/entry", {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              id: this.state.userInfo.id
+            }),
+          })
+            .then((response) => response.json())
+            .then((count) => {
+              this.setState(
+                Object.assign(this.state.userInfo, { entries: count })
+              );
+            });
+        }
         this.displayFaceBox(this.calculateFaceLocation(response));
-      }
-      )
+      })
       .catch((err) => console.log(err));
   };
 
