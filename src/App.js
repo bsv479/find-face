@@ -28,21 +28,25 @@ const particlesOptions = {
   },
 };
 
+
+const initialState = {
+  input: "",
+  imageUrl: "",
+  boxes: [],
+  route: "signin",
+  isSignedIn: false,
+  userInfo: {
+    id: "",
+    name: "",
+    email: "",
+    entries: "0",
+    joined: new Date(),
+  },
+};
+
+
 class App extends React.Component {
-  state = {
-    input: "",
-    imageUrl: "",
-    boxes: [],
-    route: "signin",
-    isSignedIn: false,
-    userInfo: {
-      id: "",
-      name: "",
-      email: "",
-      entries: 0,
-      joined: new Date(),
-    },
-  };
+  state = initialState;
 
   onInputChange = (event) => {
     this.setState({ input: event.target.value });
@@ -62,7 +66,6 @@ class App extends React.Component {
 
   calculateFaceLocation = (data) => {
     const boxes = [];
-
     const inputImage = document.getElementById("input-image");
     const width = Number(inputImage.width);
     const height = Number(inputImage.height);
@@ -97,7 +100,7 @@ class App extends React.Component {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-              id: this.state.userInfo.id
+              id: this.state.userInfo.id,
             }),
           })
             .then((response) => response.json())
@@ -114,7 +117,7 @@ class App extends React.Component {
 
   onRouteChange = (route) => {
     if (route === "signin") {
-      this.setState({ isSignedIn: false });
+      this.setState(initialState);
     } else if (route === "home") {
       this.setState({ isSignedIn: true });
     }
