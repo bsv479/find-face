@@ -44,7 +44,7 @@ class Register extends React.Component {
           this.props.onSetUser(user);
           this.props.onRouteChange('home');
         } else {
-          alert(`Email ${this.state.email} is exist`);
+          alert(user);
         }
       })
   }

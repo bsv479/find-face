@@ -5,16 +5,9 @@ import Logo from "./components/Logo/Logo";
 import Navigation from "./components/Navigation/Navigation";
 import Rank from "./components/Rank/Rank";
 import Particles from "react-particles-js";
-import Clarifai from "clarifai";
 import ImageRecognition from "./components/ImageRecognition/ImageRecognition";
 import SignIn from "./components/SignIn/SignIn";
 import Register from "./components/Register/Register";
-
-const { REACT_APP_CLARIFAI_API } = process.env;
-
-const app = new Clarifai.App({
-  apiKey: REACT_APP_CLARIFAI_API,
-});
 
 const particlesOptions = {
   particles: {
@@ -27,7 +20,6 @@ const particlesOptions = {
     },
   },
 };
-
 
 const initialState = {
   input: "",
@@ -43,7 +35,6 @@ const initialState = {
     joined: new Date(),
   },
 };
-
 
 class App extends React.Component {
   state = initialState;
@@ -91,9 +82,14 @@ class App extends React.Component {
       imageUrl: this.state.input,
     });
     const { input } = this.state;
-
-    app.models
-      .predict(Clarifai.FACE_DETECT_MODEL, input)
+    fetch("http://localhost:4000/entry-url", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        input: input,
+      }),
+    })
+      .then((response) => response.json())
       .then((response) => {
         if (response) {
           fetch("http://localhost:4000/entry", {
