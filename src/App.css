@@ -7,6 +7,10 @@
   justify-content: center;
 }
 
+.main-block {
+  padding: 15px;
+}
+
 .particles {
   position: fixed;
   top: 0;

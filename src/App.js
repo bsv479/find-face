@@ -126,7 +126,7 @@ class App extends React.Component {
     const { boxes, imageUrl, route, isSignedIn } = this.state;
 
     return (
-      <div>
+      <div className='main-block'>
         <Particles className="particles" params={particlesOptions} />
         <Navigation
           onRouteChange={this.onRouteChange}
