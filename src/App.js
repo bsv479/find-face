@@ -82,7 +82,7 @@ class App extends React.Component {
       imageUrl: this.state.input,
     });
     const { input } = this.state;
-    fetch("http://localhost:4000/entry-url", {
+    fetch("https://sheltered-cove-20234.herokuapp.com/entry-url", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -91,8 +91,8 @@ class App extends React.Component {
     })
       .then((response) => response.json())
       .then((response) => {
-        if (response) {
-          fetch("http://localhost:4000/entry", {
+        if (!response.error) {
+          fetch("https://sheltered-cove-20234.herokuapp.com/entry", {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -105,6 +105,8 @@ class App extends React.Component {
                 Object.assign(this.state.userInfo, { entries: count })
               );
             });
+        } else {
+          alert("Unable to work with Clarifai model API");
         }
         this.displayFaceBox(this.calculateFaceLocation(response));
       })
