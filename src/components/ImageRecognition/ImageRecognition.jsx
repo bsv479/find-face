@@ -4,7 +4,6 @@ import './ImageRecognition.css'
 const ImageRecognition = ({ imageUrl, boxes }) => {
   const img = <img id='input-image' alt='' src={imageUrl} />;
   return imageUrl ? (
-
     <div className='img-url-box'>
       <div className='absolute mt2'>
         {img}
