@@ -1,12 +1,13 @@
 .navbar {
-  display: flex; 
+  display: flex;
   justify-content: flex-end;
   align-items: center;
   height: 10vh;
+  font-size: 1.4rem;
 }
-
-/* .log-out {
-  display: inline-block;
-  justify-self: flex-end;
-
-} */
+@media screen and (max-width: 500px) {
+  .navbar {
+    justify-content: space-evenly;
+    font-size: 1.3rem;
+  }
+}

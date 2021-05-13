@@ -52,7 +52,7 @@ class Register extends React.Component {
 
   render() {
     return (
-      <article className="br3 shadow-5 ba dark-gray b--black-10 mt5 w-100 w-50-m w-25-l mw6 center">
+      <article className="br3 shadow-5 ba dark-gray b--black-10 mt5 w-90 w-60-m w-25-l mw6 center">
         <main className="pa4 black-80">
           <form className="measure">
             <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
@@ -60,21 +60,21 @@ class Register extends React.Component {
               <div className="mt3">
                 <label className="db fw6 lh-copy f6" htmlFor="name">Name</label>
                 <input className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
-                  type="text" name="name" id="name" 
-                    onChange={this.onNameChange}
-                  />
+                  type="text" name="name" id="name"
+                  onChange={this.onNameChange}
+                />
               </div>
               <div className="mt3">
                 <label className="db fw6 lh-copy f6" htmlFor="email-address">Email</label>
                 <input className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
-                  type="email" name="email-address" id="email-address" 
+                  type="email" name="email-address" id="email-address"
                   onChange={this.onEmailChange}
                 />
               </div>
               <div className="mv3">
                 <label className="db fw6 lh-copy f6" htmlFor="password">Password</label>
                 <input className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
-                  type="password" name="password" id="password" 
+                  type="password" name="password" id="password"
                   onChange={this.onPasswordChange}
                 />
               </div>
