@@ -10,7 +10,8 @@ const ImageLinkForm = ({ onInputChange, onPictureSubmit }) => {
 
       <div className='form-container center'>
         <div className='form-box pa4 br3 shadow-5 center'>
-          <input type="text" 
+          <input type="text"
+            placeholder='Image url'
             onChange={onInputChange}
             className='find-input f4 pa2 w-70 center'
           />
